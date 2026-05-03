@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tríptico - Tipos de Ciencias | Trabajo Social</title>
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Configuración para impresión A4 horizontal */
+        @page {
+            size: A4 landscape;
+            margin: 1.5cm;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Segoe UI', 'Roboto', 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Cada página del tríptico (frontal y posterior) */
+        .page {
+            page-break-after: always; /* fuerza salto de página */
+            width: 100%;
+            background: white;
+            margin-bottom: 1cm;
+        }
+
+        .page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Grid de 3 columnas para los paneles */
+        .panel-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+            align-items: stretch;
+        }
+
+        /* Estilo de cada panel */
+        .panel {
+            background: #fff;
+            padding: 0.9rem;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            break-inside: avoid; /* evita que se rompa dentro del panel */
+        }
+
+        .panel h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.6rem;
+            padding-bottom: 0.2rem;
+            border-bottom: 3px solid;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .panel p, .panel li {
+            font-size: 0.78rem;
+            line-height: 1.4;
+            color: #1e293b;
+            margin-bottom: 0.4rem;
+            text-align: justify;
+        }
+
+        .panel ul {
+            padding-left: 1.2rem;
+            margin: 0.3rem 0;
+        }
+
+        /* Gráficos y tablas */
+        .grafico {
+            background: #f8fafc;
+            margin: 0.6rem 0;
+            padding: 0.4rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tabla-simple {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.65rem;
+            margin: 0.4rem 0;
+        }
+
+        .tabla-simple th, .tabla-simple td {
+            border: 1px solid #94a3b8;
+            padding: 3px;
+            text-align: center;
+        }
+
+        .tabla-simple th {
+            background: #eef2ff;
+        }
+
+        .diagrama {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin: 0.4rem 0;
+        }
+
+        .diagrama span {
+            background: #d9e6f5;
+            padding: 3px 6px;
+            font-size: 0.65rem;
+            font-weight: bold;
+        }
+
+        .barras {
+            background: #f1f5f9;
+            padding: 4px;
+        }
+
+        .bar {
+            background: #3b82f6;
+            color: white;
+            padding: 2px;
+            margin: 2px 0;
+            font-size: 0.6rem;
+        }
+
+        /* Imágenes */
+        .img-box {
+            margin: 0.5rem 0;
+            text-align: center;
+        }
+
+        .img-box img {
+            width: 100%;
+            max-height: 100px;
+            object-fit: cover;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Colores de títulos */
+        .formales h2 { border-bottom-color: #3b82f6; color: #1e3a8a; }
+        .naturales h2 { border-bottom-color: #10b981; color: #065f46; }
+        .fácticas h2 { border-bottom-color: #f97316; color: #9a3412; }
+        .sociales h2 { border-bottom-color: #ec489a; color: #9d174d; }
+        .aplicadas h2 { border-bottom-color: #8b5cf6; color: #5b21b6; }
+
+        /* Carátula */
+        .portada {
+            background: #ffffff;
+            border: 2px solid #3b82f6;
+            text-align: center;
+        }
+        .portada .universidad {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #1e3a8a;
+        }
+        .portada .titulo-ciencias {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin: 0.3rem 0;
+            color: #0f3b5c;
+        }
+        .datos-alumno {
+            background: #eff6ff;
+            padding: 0.4rem;
+            text-align: left;
+            font-size: 0.7rem;
+            border-left: 4px solid #3b82f6;
+            margin: 0.5rem 0;
+        }
+        .cita-apa {
+            font-size: 0.65rem;
+            font-style: italic;
+            color: #475569;
+            border-left: 2px solid #cbd5e1;
+            padding-left: 0.3rem;
+            margin-top: 0.5rem;
+            text-align: left;
+        }
+
+        /* Ajustes para impresión */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .panel {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .img-box img {
+                max-height: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- PRIMERA PÁGINA (CARA FRONTAL) -->
+    <div class="page">
+        <div class="panel-container">
+            <!-- PANEL 1 - CARÁTULA -->
+            <div class="panel portada">
+                <div class="universidad">UNIVERSIDAD TÉCNICA DE MANABÍ</div>
+                <div class="titulo-ciencias">TIPOS DE CIENCIAS</div>
+                <div class="img-box">
+                    <img src="https://images.pexels.com/photos/256417/pexels-photo-256417.jpeg?auto=compress&cs=tinysrgb&w=400&h=130&fit=crop" alt="Ciencia">
+                </div>
+                <div class="datos-alumno">
+                    <p><strong>Carrera:</strong> Trabajo Social</p>
+                    <p><strong>Nombre:</strong> Kristin Marissa Ibarra Vélez</p>
+                    <p><strong>Paralelo:</strong> (TS-ON LINE)(R2020)</p>
+                    <p><strong>Docente:</strong> Silvia Magdalena García Mera</p>
+                    <p><strong>Fecha:</strong> sábado, 9 de mayo de 2026</p>
+                </div>
+                <div class="cita-apa">“Clasificar las ciencias es clave para su método” (Bunge, 1981)</div>
+            </div>
+
+            <!-- PANEL 2 - CIENCIAS FORMALES -->
+            <div class="panel formales">
+                <h2>📐 Ciencias Formales</h2>
+                <p><strong>Definición:</strong> Estudian formas válidas de razonamiento y sistemas abstractos. No se ocupan de hechos empíricos sino de relaciones lógico-matemáticas (Bunge, 1981).</p>
+                <p><strong>Características:</strong> Demostración, deducción, consistencia interna, objetos ideales (números, conjuntos).</p>
+                <p><strong>Ejemplos:</strong> Matemáticas puras, Lógica formal, Geometría, Estadística teórica, Computación teórica.</p>
+                <div class="grafico">
+                    <div class="diagrama">
+                        <span>Lógica</span> → <span>Matemáticas</span> → <span>Teoría de conjuntos</span>
+                    </div>
+                    <table class="tabla-simple">
+                        <tr><th>Rama</th><th>Objeto de estudio</th></tr>
+                        <tr><td>Lógica</td><td>Razonamiento válido</td></tr>
+                        <tr><td>Álgebra</td><td>Estructuras abstractas</td></tr>
+                    </table>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.pexels.com/photos/256150/pexels-photo-256150.jpeg?auto=compress&cs=tinysrgb&w=300&h=100&fit=crop" alt="Matemáticas">
+                </div>
+                <div class="cita-apa">(Méndez, 2019; Russell, 1912)</div>
+            </div>
+
+            <!-- PANEL 3 - CIENCIAS NATURALES -->
+            <div class="panel naturales">
+                <h2>🌿 Ciencias Naturales</h2>
+                <p><strong>Definición:</strong> Investigan los fenómenos del mundo físico, la materia, energía y los seres vivos mediante el método científico experimental (Hempel, 1966).</p>
+                <p><strong>Características:</strong> Observación sistemática, experimentación, leyes universales (gravedad, evolución).</p>
+                <p><strong>Ramas:</strong> Física, Química, Biología, Astronomía, Geología, Ecología.</p>
+                <div class="grafico">
+                    <div class="barras">
+                        <div class="bar" style="width:80%">🔬 Física experimental</div>
+                        <div class="bar" style="width:70%">🧪 Química orgánica</div>
+                        <div class="bar" style="width:90%">🧬 Biología molecular</div>
+                    </div>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg?auto=compress&cs=tinysrgb&w=300&h=100&fit=crop" alt="Naturaleza">
+                </div>
+                <div class="cita-apa">(Campbell & Reece, 2005; Darwin, 1859)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEGUNDA PÁGINA (CARA POSTERIOR) -->
+    <div class="page">
+        <div class="panel-container">
+            <!-- PANEL 4 - CIENCIAS FÁCTICAS -->
+            <div class="panel fácticas">
+                <h2>📊 Ciencias Fácticas</h2>
+                <p><strong>Definición:</strong> Se basan en hechos observables y verificables. Su verdad es contingente. Engloban naturales y sociales (Bunge, 1981).</p>
+                <p><strong>Diferencia con formales:</strong> Las fácticas requieren contrastación empírica; las formales solo coherencia lógica.</p>
+                <table class="tabla-simple">
+                    <tr><th>Ciencia fáctica</th><th>Método principal</th></tr>
+                    <tr><td>Física</td><td>Experimentación controlada</td></tr>
+                    <tr><td>Sociología</td><td>Encuestas, observación</td></tr>
+                </table>
+                <div class="grafico">
+                    <div class="diagrama">Hechos → Hipótesis → Experimentación → Leyes</div>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.pexels.com/photos/256417/pexels-photo-256417.jpeg?auto=compress&cs=tinysrgb&w=300&h=100&fit=crop" alt="Investigación">
+                </div>
+                <div class="cita-apa">(Klimovsky, 1994; Popper, 1963)</div>
+            </div>
+
+            <!-- PANEL 5 - CIENCIAS SOCIALES -->
+            <div class="panel sociales">
+                <h2>👥 Ciencias Sociales</h2>
+                <p><strong>Definición:</strong> Analizan el comportamiento humano, sociedades, instituciones y cultura. Usan métodos cualitativos y cuantitativos (Giddens, 2013).</p>
+                <p><strong>Disciplinas:</strong> Sociología, Antropología, Economía, Ciencia política, Historia, Trabajo Social.</p>
+                <div class="grafico">
+                    <div class="diagrama">
+                        <span>📋 Cualitativo</span> <span>📊 Cuantitativo</span> <span>🔍 Mixto</span>
+                    </div>
+                    <table class="tabla-simple">
+                        <tr><th>Método</th><th>Ejemplo en Trabajo Social</th></tr>
+                        <tr><td>Entrevista profundidad</td><td>Diagnóstico comunitario</td></tr>
+                        <tr><td>Encuesta</td><td>Medición de necesidades</td></tr>
+                    </table>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.pexels.com/photos/3194518/pexels-photo-3194518.jpeg?auto=compress&cs=tinysrgb&w=300&h=100&fit=crop" alt="Comunidad">
+                </div>
+                <div class="cita-apa">(Weber, 1922; Durkheim, 1895; Bourdieu, 1980)</div>
+            </div>
+
+            <!-- PANEL 6 - CIENCIAS APLICADAS -->
+            <div class="panel aplicadas">
+                <h2>⚙️ Ciencias Aplicadas</h2>
+                <p><strong>Definición:</strong> Usan el conocimiento de ciencias básicas para resolver problemas prácticos. Incluyen Ingenierías, Medicina, Arquitectura, y el <strong>Trabajo Social</strong> como ciencia social aplicada.</p>
+                <div class="grafico">
+                    <div class="diagrama">
+                        <span>🔬 Ciencia básica</span> → <span>🛠️ Investigación aplicada</span> → <span>🏥 Solución real</span>
+                    </div>
+                    <table class="tabla-simple">
+                        <tr><th>Campo</th><th>Aporte</th></tr>
+                        <tr><td>Medicina</td><td>Tratamientos basados en evidencia</td></tr>
+                        <tr><td>Ingeniería</td><td>Infraestructura, software</td></tr>
+                        <tr><td>Trabajo Social</td><td>Intervención psicosocial</td></tr>
+                    </table>
+                </div>
+                <div class="img-box">
+                    <img src="https://images.pexels.com/photos/3825586/pexels-photo-3825586.jpeg?auto=compress&cs=tinysrgb&w=300&h=100&fit=crop" alt="Tecnología">
+                </div>
+                <div class="cita-apa">(Vicente, 2018; ECLAC, 2020)</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
